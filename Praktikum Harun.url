@@ -1,2 +1,21 @@
 [InternetShortcut]
-URL=https://github.com/Harun3655/expert-adventure/issues/2
+URL=https://github.com/Harun3655/expert-adventure/issues/2+
+console.writeline(harun);
+var services = new ServiceCollection();
+var configuration = new ConfigurationBuilder()
+  .AddInMemoryCollection(new List<KeyValuePair<string, string>>()
+  {
+    new KeyValuePair<string, string>("MyClient:ApiBaseAddress", "https://api.{region}.commercetools.com/"),
+    new KeyValuePair<string, string>("MyClient:AuthorizationBaseAddress", "https://auth.{region}.commercetools.com/"),
+    new KeyValuePair<string, string>("MyClient:ClientId", "{clientID}"),
+    new KeyValuePair<string, string>("MyClient:ClientSecret", "{clientSecret}"),
+    new KeyValuePair<string, string>("MyClient:ProjectKey", "{projectKey}"),
+    new KeyValuePair<string, string>("MyClient:Scope", "{scope}")
+  })
+.Build();
+console.readline();
+services.UseCommercetoolsApi(configuration, "MyClient");
+services.AddLogging();
+
+var serviceProvider = services.BuildServiceProvider();
+var projectApiRoot = serviceProvider.GetService<ProjectApiRoot>();
